@@ -3,10 +3,10 @@
 #include <math.h>
 
 bool checksum(int num[], int len);
+void cardType(bool result, int num[], int len);
 
 int main(void)
 {
-
     //loop to get positive numbers between 13 digits and 16 digits
     long number;
     do
@@ -40,29 +40,7 @@ int main(void)
         result = checksum(num, len);
 
         //to check different types of credit cards
-        if (result == true)
-        {
-            if((len == 13 || len == 14 || len == 15 || len == 16) && num[len-1] == 4)
-            {
-                printf("VISA\n");
-            }
-            else if (len == 15 && (num[len-1] == 3 && (num[len-2] == 4 || num[len-2] == 7)))
-            {
-                printf("AMEX\n");
-            }
-            else if (len == 16 && (num[len-1] == 5 && (num[len-2] == 1 || num[len-2] == 2 || num[len-2] == 3 || num[len-2] == 4 || num[len-2] == 5)))
-            {
-                printf("MASTERCARD\n");
-            }
-            else
-            {
-                printf("INVALID\n");
-            }
-        }
-        else
-        {
-            printf("INVALID\n");
-        }
+        cardType(result, num, len);
     }
     else
     {
@@ -76,25 +54,25 @@ int main(void)
 //checksum to find out the last digit of final checksum is zero or not
 bool checksum(int num[], int len)
 {
-
-
-    int temp[16];
-    for (int b = 0; b < len; b++)
-    {
-        temp[b] = num[b];
-    }
-
+    int temp = 0;
     int sum = 0;
 
     //this for loop goes through every other number, starting with the number's second-to-last digit
     for(int i = 1; i < len; i = i+2)
     {
-        temp[i] = temp[i] * 2;
+        temp = num[i] * 2;
         //all the considered number is multiplied by 2 and all the digits are added up and stored in variable sum
-        while (temp[i] != 0)
+        if (temp > 9)
         {
-            sum = sum + (temp[i] % 10);
-            temp[i] = temp[i] / 10;
+            while (temp != 0)
+            {
+                sum = sum + (temp % 10);
+                temp = temp / 10;
+            }
+        }
+        else
+        {
+            sum = sum + temp;
         }
     }
     //add up all those digits that weren't multiplied by 2
@@ -114,5 +92,32 @@ bool checksum(int num[], int len)
     else
     {
         return false;
+    }
+}
+
+void cardType(bool result, int num[], int len)
+{
+    if (result == true)
+    {
+        if((len == 13 || len == 14 || len == 15 || len == 16) && num[len-1] == 4)
+        {
+            printf("VISA\n");
+        }
+        else if (len == 15 && (num[len-1] == 3 && (num[len-2] == 4 || num[len-2] == 7)))
+        {
+            printf("AMEX\n");
+        }
+        else if (len == 16 && (num[len-1] == 5 && (num[len-2] == 1 || num[len-2] == 2 || num[len-2] == 3 || num[len-2] == 4 || num[len-2] == 5)))
+        {
+            printf("MASTERCARD\n");
+        }
+        else
+        {
+            printf("INVALID\n");
+        }
+    }
+    else
+    {
+        printf("INVALID\n");
     }
 }
