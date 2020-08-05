@@ -46,9 +46,6 @@ int main(void)
     {
         printf("INVALID\n");
     }
-
-
-
 }
 
 //checksum to find out the last digit of final checksum is zero or not
@@ -75,6 +72,7 @@ bool checksum(int num[], int len)
             sum = sum + temp;
         }
     }
+    
     //add up all those digits that weren't multiplied by 2
     for(int j = 0; j < len; j = j+2)
     {
