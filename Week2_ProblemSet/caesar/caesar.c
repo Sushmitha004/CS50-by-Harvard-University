@@ -14,7 +14,7 @@ int main(int argc, string argv[])
     {
         int n = strlen(argv[1]);
 
-        //checking if all the characters in the given argument are digits or not
+        //checking if all the characters in the given argument is a digit or not
         for (int i = 1; i < argc; i++)
         {
             for (int j = 0; j < n; j++)
@@ -33,50 +33,38 @@ int main(int argc, string argv[])
 
         //get a text from the user
         text = get_string("plaintext: ");
-        // printf("%s\n", text);
-
-        int len_text = strlen(text);
-        int c_text[len_text];
 
         printf("ciphertext: ");
-        int p = 0;
 
-        //Encrypting the given text
+        int c_text, p = 0;
         while (text[p] != '\0')
         {
             if(isupper(text[p]))
             {
                 text[p] -= 65;
-                // printf("text = %i\n", text[p]);
+                c_text = (text[p] + key) % 26;
+                c_text += 65;
 
-                c_text[p] = (text[p] + key) % 26;
-
-                c_text[p] += 65;
-                // printf("c_text = %i\n", c_text[p]);
-
-                printf("%c", c_text[p]);
+                printf("%c", c_text);
 
                 p++;
             }
             else if (islower(text[p]))
             {
                 text[p] -= 97;
-                // printf("text = %i\n", text[p]);
+                c_text = (text[p] + key) % 26;
+                c_text += 97;
 
-                c_text[p] = (text[p] + key) % 26;
-
-                c_text[p] += 97;
-                // printf("c_text = %i\n", c_text[p]);
-
-                printf("%c", c_text[p]);
+                printf("%c", c_text);
 
                 p++;
             }
             else
             {
-                c_text[p] = text[p];
+                c_text = text[p];
 
-                printf("%c", c_text[p]);
+                printf("%c", c_text);
+
                 p++;
             }
         }
