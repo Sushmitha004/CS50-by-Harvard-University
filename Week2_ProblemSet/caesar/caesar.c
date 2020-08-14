@@ -4,6 +4,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+void encrypt(string text, int key);
+
 int main(int argc, string argv[])
 {
     int key = 0;
@@ -29,51 +31,57 @@ int main(int argc, string argv[])
 
         //convert the argument from type string to type int
         key = atoi(argv[1]);
-        printf("key: %i\n", key);
 
         //get a text from the user
         text = get_string("plaintext: ");
 
-        printf("ciphertext: ");
-
-        int c_text, p = 0;
-        while (text[p] != '\0')
-        {
-            if(isupper(text[p]))
-            {
-                text[p] -= 65;
-                c_text = (text[p] + key) % 26;
-                c_text += 65;
-
-                printf("%c", c_text);
-
-                p++;
-            }
-            else if (islower(text[p]))
-            {
-                text[p] -= 97;
-                c_text = (text[p] + key) % 26;
-                c_text += 97;
-
-                printf("%c", c_text);
-
-                p++;
-            }
-            else
-            {
-                c_text = text[p];
-
-                printf("%c", c_text);
-
-                p++;
-            }
-        }
-
-        printf("\n");
+        //function to encrypt the given text
+        encrypt(text, key);
     }
     else
     {
         printf("Usage: ./caesar key\n");
         return 1;
     }
+}
+
+//function to encrypt the given text
+void encrypt(string text, int key)
+{
+    int c_text, p = 0;
+    printf("ciphertext: ");
+
+    while (text[p] != '\0')
+    {
+        if (isupper(text[p]))
+        {
+            text[p] -= 65;
+            c_text = (text[p] + key) % 26;
+            c_text += 65;
+
+            printf("%c", c_text);
+
+            p++;
+        }
+        else if (islower(text[p]))
+        {
+            text[p] -= 97;
+            c_text = (text[p] + key) % 26;
+            c_text += 97;
+
+            printf("%c", c_text);
+
+            p++;
+        }
+        else
+        {
+            c_text = text[p];
+
+            printf("%c", c_text);
+
+            p++;
+        }
+    }
+
+    printf("\n");
 }
