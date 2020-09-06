@@ -60,6 +60,15 @@ int count_words(string text)
             words++;
         }
         i++;
+        // if (isalpha(text[i]) || text[i] == ',')
+        // {
+        //     i++;
+        // }
+        // else
+        // {
+        //     words++;
+        //     i++;
+        // }
     }
     return words + 1;
 }

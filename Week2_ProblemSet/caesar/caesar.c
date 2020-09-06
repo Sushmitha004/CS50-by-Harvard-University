@@ -12,37 +12,35 @@ int main(int argc, string argv[])
     string text;
 
     //checking if only 2 command line arguments are present including ./caesar
-    if (argc == 2)
-    {
-        int n = strlen(argv[1]);
-
-        //checking if all the characters in the given argument is a digit or not
-        for (int i = 1; i < argc; i++)
-        {
-            for (int j = 0; j < n; j++)
-            {
-                if (isalpha(argv[i][j]))
-                {
-                    printf("Usage: ./caesar key\n");
-                    return 1;
-                }
-            }
-        }
-
-        //convert the argument from type string to type int
-        key = atoi(argv[1]);
-
-        //get a text from the user
-        text = get_string("plaintext: ");
-
-        //function to encrypt the given text
-        encrypt(text, key);
-    }
-    else
+    if (argc != 2)
     {
         printf("Usage: ./caesar key\n");
         return 1;
     }
+
+    int n = strlen(argv[1]);
+
+    //checking if all the characters in the given argument is a digit or not
+    for (int i = 1; i < argc; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if (isalpha(argv[i][j]))
+            {
+                printf("Usage: ./caesar key\n");
+                return 1;
+            }
+        }
+    }
+
+    //convert the argument from type string to type int
+    key = atoi(argv[1]);
+
+    //get a text from the user
+    text = get_string("plaintext: ");
+
+    //function to encrypt the given text
+    encrypt(text, key);
 }
 
 //function to encrypt the given text
